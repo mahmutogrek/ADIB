@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:esbbank.com/gbo/xml/schemas/v1_0/"
+	xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="urn:esbbank.com/gbo/xml/schemas/v1_0/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:include schemaLocation="EsbCommon.xsd" />
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Global Inquiry Service -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+	<xsd:element name="limitMaintenanceRequest" type="tns:LimitMaintenanceRequest" />
+	<xsd:complexType name="LimitMaintenanceRequest">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="branchCode"
+							type="tns:BranchCode" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="terminalId"
+							type="tns:TerminalIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="employeeId"
+							type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="supervisorId"
+							type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="userName"
+							type="tns:UserNameType" />
+						<xsd:element name="atmSwitchID" type="xsd:string"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="deviceLocation" type="xsd:string"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element name="limtService"
+							minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                            	<xsd:sequence>
+                            		<xsd:element name="serviceType"
+                            			type="tns:LimitServiceType" minOccurs="1"
+                            			maxOccurs="1">
+                            		</xsd:element>
+                            		<xsd:element name="acctNumber"
+                            			minOccurs="1" maxOccurs="1">
+                            			<xsd:simpleType>
+                            				<xsd:restriction
+                            					base="xsd:string">
+                            					<xsd:minLength
+                            						value="1">
+                            					</xsd:minLength>
+                            					<xsd:maxLength
+                            						value="60">
+                            					</xsd:maxLength>
+                            				</xsd:restriction>
+                            			</xsd:simpleType>
+                            		</xsd:element>
+                            		<xsd:element name="amount" minOccurs="1" maxOccurs="1" type="xsd:decimal">
+
+                            		</xsd:element>
+                            		<xsd:element name="description" minOccurs="0" maxOccurs="1" type="xsd:string">
+
+                            		</xsd:element>
+                            		<xsd:element name="debitAccount"
+                            			type="tns:AcctNumber" minOccurs="0" maxOccurs="1">
+                            		</xsd:element>
+                            	</xsd:sequence>
+                            </xsd:complexType>
+						</xsd:element>
+
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:simpleType name="LimitServiceType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="LIMIT.UTILIZE" />
+			<xsd:enumeration value="LIMIT.REFUND" />
+			<xsd:enumeration value="LIMIT.INCREASE" />
+			<xsd:enumeration value="LIMIT.DECREASE" />
+			<xsd:enumeration value="AVAILABLE.INCREASE" />
+			<xsd:enumeration value="AVAILABLE.DECREASE" />
+			<xsd:enumeration value="LIMIT.UTILIZE.INCREASE" />
+			<xsd:enumeration value="LIMIT.UTILIZE.DECREASE" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:element name="getLimitDetailByRIMRequest" type="tns:GetLimitInquiryByRIMRequest" />
+	<xsd:complexType name="GetLimitInquiryByRIMRequest">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="branchCode"
+							type="tns:BranchCode" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="terminalId"
+							type="tns:TerminalIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="employeeId"
+							type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="supervisorId">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int"></xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element maxOccurs="1" minOccurs="0" name="userName"
+							type="tns:UserNameType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="deviceLocation"
+							type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="atmSwitchId"
+							type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="1"
+							name="limitInquiryByRIMRequest" type="tns:LimitInquiryByRIMRequest" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="LimitInquiryByRIMRequest">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="rimNo">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int">
+						<xsd:minExclusive value="0"></xsd:minExclusive>
+						<xsd:maxExclusive value="12"></xsd:maxExclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+				type="tns:SnapIns" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="getLimitDetailRequest" type="tns:GetLimitDetailsRequest" />
+	<xsd:complexType name="GetLimitDetailsRequest">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="branchCode"
+							type="tns:BranchCode" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="terminalId"
+							type="tns:TerminalIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="employeeId"
+							type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="supervisorId"
+							type="tns:SupervisorIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="userName"
+							type="tns:UserNameType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="deviceLocation"
+							type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="atmSwitchId"
+							type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="1"
+							name="limitInquiryRequest" type="tns:LimitInquiryRequest" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="LimitInquiryRequest">
+		<xsd:sequence>
+			
+			<xsd:element name="accountNumber" type="tns:AcctNumber"
+				maxOccurs="1" minOccurs="1" />
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+				type="tns:SnapIns" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="SupervisorIdType">
+		<xsd:restriction base="xsd:integer">
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:element name="limitAttachDettachRequest" type="tns:LimitAttachDettachRequest"/>
+	<xsd:complexType name="LimitAttachDettachRequest">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_HEADER" type="tns:EAI_HEADER"/>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="branchCode"
+							type="tns:BranchCode" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="terminalId"
+							type="tns:TerminalIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="employeeId"
+							type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="supervisorId"
+							type="tns:SupervisorIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="userName"
+							type="tns:UserNameType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="deviceLocation"
+							type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="atmSwitchId"
+							type="xsd:string" />
+					    <xsd:element minOccurs="1" maxOccurs="1" name="operation">
+					    <xsd:simpleType>
+					        <xsd:restriction base="xsd:string">
+					          <xsd:enumeration value="A"/>
+					          <xsd:enumeration value="R"/>
+					        </xsd:restriction>
+					      </xsd:simpleType>
+					    </xsd:element>
+					    <xsd:element minOccurs="1" maxOccurs="1" name="accountNumber" type="xsd:string"/>
+					    <xsd:element minOccurs="1" maxOccurs="1" name="groupCommitmentNo" type="xsd:string"/>
+					    <xsd:element minOccurs="1" maxOccurs="1" name="groupCommitmentType" type="xsd:string"/>
+					    <xsd:element minOccurs="0" maxOccurs="1" name="loanFixedRate" type="xsd:decimal"/>
+					    <xsd:element minOccurs="0" maxOccurs="1" name="commitmentFixedRate" type="xsd:decimal"/>
+					    <xsd:element minOccurs="0" maxOccurs="1" name="guarantyPercentage" type="xsd:decimal"/>
+					    <xsd:element minOccurs="0" maxOccurs="1" name="depLoan" type="xsd:string"/>
+						
+					    <xsd:element maxOccurs="unbounded" minOccurs="0"
+							name="snapIn" type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1"
+							name="requestTime" type="tns:TimeStampStr" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- REPLY -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+	<xsd:element name="getLimitDetailReply" type="tns:GetLimitDetailsReply" />
+	<xsd:complexType name="GetLimitDetailsReply">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumProvider" type="tns:ReferenceNumProvider" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0"
+							name="limitInquiryReply" type="tns:LimitInquiryReply" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus"
+							type="tns:ReturnStatus" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="returnStatusProvider" type="tns:ReturnStatusProvider" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="exceptionList"
+							type="xsd:anyType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="LimitInquiryReply">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="1" name="rimNumber"
+				type="xsd:int">
+			</xsd:element>
+			<xsd:element minOccurs="0" maxOccurs="1" name="commitmentType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="commitmentNumber" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parentCmtNumber" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parentCmtType" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="groupCmtNo" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="groupCmtType" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="isoCode" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="amount" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currentBalance" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="holdBalance" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="advance" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="effectiveDate" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="maturityDate" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="lastRenewalDate" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="nextRenewalDate" type="xsd:dateTime"
+				maxOccurs="1" minOccurs="0"></xsd:element>
+			<xsd:element name="description" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="drawDown" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subCmtType" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subCmtNumber" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subAmount" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subIsoCode" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subDescription" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subCurrentBal" maxOccurs="1"
+				minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subHoldAmt" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="availableBal" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="IBAN" maxOccurs="1" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="34"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="getLimitDetailByRIMReply" type="tns:GetLimitInquiryByRIMReply" />
+	<xsd:complexType name="GetLimitInquiryByRIMReply">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumProvider" type="tns:ReferenceNumProvider" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0"
+							name="limitInquiryByRIMReply" type="tns:LimitInquiryByRIMReplyList" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus"
+							type="tns:ReturnStatus" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="returnStatusProvider" type="tns:ReturnStatusProvider" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="exceptionList"
+							type="xsd:anyType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="LimitInquiryByRIMReplyList">
+		<xsd:sequence>
+			<xsd:element minOccurs="0" maxOccurs="1" name="commitmentType">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element minOccurs="0" maxOccurs="1" name="commitmentNo">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element minOccurs="0" maxOccurs="1" name="contractAmt">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element minOccurs="0" maxOccurs="1" name="currentBal">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element minOccurs="0" maxOccurs="1" name="matDt">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="branchNo" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="groupSub" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="accrIntFlag" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="liabProduct" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="title1" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="90"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="title2" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="90"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="contractDate" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="term" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="period" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="8"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="availableBalDef" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="reviewTerm" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="reviewPeriod" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="8"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nextReviewDate" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="availabilityStartDT" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="availabilityEndDT" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="attachAsLoan" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="grade" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="5"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="sicCode" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="cmtCountry" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="5"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="advance" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parentExchamgeRate" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="commitmentExchRate" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="overLimitAmount" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="overLimitType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="effectiveDT" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="applicationType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="statementRequiredFlag" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="undisbursedAmount" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="accruedInterest" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="lateCtmFeeDue" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="commitmentFixRate" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="tenorDays" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="rsm" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="rateType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="10"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="currentRate" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="indexID" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="margin" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="marginType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="floor" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ceiling" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="changeTRM" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="changePeriod" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="8"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nxtRateDT" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime">
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="intType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="calcBalType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="postOption" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="accrBasis" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="beginAccurateDT" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="endAccurateDT" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="matIndexID" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="matMargin" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="matMarginType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subRateType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="10"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subCurrentRate" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subIntIndexID" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subIntMargin" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subFloor" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subCeiling" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="9"></xsd:maxInclusive>
+						<xsd:fractionDigits value="4"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subTerm" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subPeriod" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subNextDT" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:dateTime"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="subIntMarginType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="isoCode" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="level" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parentCmtNo" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="parentCmtType" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="childCmtNo" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="childCmtType" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="classCode" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:int"></xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="description" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="classDescription" minOccurs="0"
+				maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="status" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="holdBalance" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="availBalance" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:decimal">
+						<xsd:maxInclusive value="21"></xsd:maxInclusive>
+						<xsd:fractionDigits value="6"></xsd:fractionDigits>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="IBAN" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="34"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="nonCashFalg" minOccurs="0" maxOccurs="1">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="0"></xsd:minLength>
+						<xsd:maxLength value="1"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+				type="tns:SnapIns" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	
+	<xsd:element name="maintainCommitmentRequest" type="tns:MaintainCommitmentRequestType" />
+	<xsd:complexType name="MaintainCommitmentRequestType">
+		<xsd:sequence>
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_HEADER" type="tns:EAI_HEADER" />
+			<xsd:element minOccurs="1" maxOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum" type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="branchCode" type="tns:BranchCode" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="terminalId" type="tns:TerminalIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="employeeId" type="tns:BranchEmployeeIdType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="supervisorId">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:int"></xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element maxOccurs="1" minOccurs="0" name="userName" type="tns:UserNameType" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="deviceLocation" type="xsd:string" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="atmSwitchId" type="xsd:string" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="maintainCommitment" type="tns:MaintainCommitmentType" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn" type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime" type="tns:TimeStampStr" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>		
+	
+	<xsd:complexType name="MaintainCommitmentType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="operation">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+						<xsd:length value="1"></xsd:length>
+						<xsd:enumeration value="C"></xsd:enumeration>
+						<xsd:enumeration value="U"></xsd:enumeration>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="1"
+				name="commitmentType">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="commitmentNumber">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="classCode" type="xsd:int">
+
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="branchNo"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="description">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="title1">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="title2">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="groupSub" >
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="40"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accrueInterest">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+
+						<xsd:length value="1"></xsd:length>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="liabilityProduct">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+
+						<xsd:length value="1"></xsd:length>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="amount"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="contractDate"  type="xsd:dateTime"/>
+			<xsd:element maxOccurs="1" minOccurs="1" name="commitmentTerm"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="1" name="commitmentTermUnit" type="xsd:string">
+
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="availableBalanceDefinition">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="review"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="reviewUnit">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="8"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="advance">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="9"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="overLimitAmount"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="overLimitType">
+
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="statementRequired">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+
+						<xsd:length value="1"></xsd:length>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="statementLeaddays" type="xsd:int">
+
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="billLeaddays"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="otherLeaddays"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="transferLeaddays"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="dueDateOption">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="rimNo"  type="tns:CustomerNumber"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="groupCommitmentNo">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="groupCommitmentType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="subCommitmentNo">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="12"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="subCommitmentType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="3"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="availabilityStartDate">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="availabilityEndDate">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="fixExchangerate">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+
+						<xsd:length value="1"></xsd:length>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="commitmentGrade">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="5"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="sicCode"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="country">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="15"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="rateType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="10"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="currentRate"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="indexID"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="margin"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="marginType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="floor"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="ceiling"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="nextRateChangeDate"  type="xsd:dateTime"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="rateChangeTerm"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="rateChangePeriod">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="8"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="calculationBalanceType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="13"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="accrualBasis">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="beginAccrualDate"  type="xsd:dateTime"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="endAccrualDate"  type="xsd:dateTime"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="maturityIndexId"  type="xsd:int"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="maturityMargin"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0"
+				name="maturityMarginType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:minLength value="1"></xsd:minLength>
+						<xsd:maxLength value="7"></xsd:maxLength>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element maxOccurs="1" minOccurs="0" name="attachasLoan" type="tns:YorN"/>
+				
+			<xsd:element maxOccurs="1" minOccurs="0" name="subExchRate"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="cmtExchRate"  type="xsd:decimal"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="advanceFlag"  type="tns:YorN"/>
+			<xsd:element maxOccurs="1" minOccurs="0" name="tenorDays"  type="xsd:int"/>
+			<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn" type="tns:SnapIns" />
+			
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="maintainCommitmentReply" type="tns:MaintainCommitmentReplyType" />
+	<xsd:complexType name="MaintainCommitmentReplyType">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_HEADER" type="tns:EAI_HEADER" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY"> 
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum" type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="referenceNumProvider" type="tns:ReferenceNumProvider" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn" type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime" type="tns:TimeStampStr" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus" type="tns:ReturnStatus" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="returnStatusProvider" type="tns:ReturnStatusProvider" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="exceptionList" type="xsd:anyType" />
+						</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:element name="limitMaintenanceReply" type="tns:LimitMaintenanceReply" />
+	<xsd:complexType name="LimitMaintenanceReply">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_HEADER"
+				type="tns:EAI_HEADER" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum"
+							type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="referenceNumProvider" type="tns:ReferenceNumProvider" />
+
+						<xsd:element maxOccurs="1" minOccurs="0" name="authCode"
+							type="xsd:decimal" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="localEquivalentAmount" type="xsd:decimal" />
+						<xsd:element name="USDEquivalentAmount" type="xsd:decimal"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element minOccurs="0" maxOccurs="1"
+							name="phoenixChargeCode" type="xsd:integer" />
+						<xsd:element name="chargeDescription" type="xsd:string"
+							minOccurs="0" maxOccurs="1">
+						</xsd:element>
+						<xsd:element minOccurs="0" maxOccurs="1"
+							name="phoenixChargeCodeAmount" type="xsd:decimal" />
+
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"
+							type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"
+							type="tns:TimeStampStr" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus"
+							type="tns:ReturnStatus" />
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="returnStatusProvider" type="tns:ReturnStatusProvider" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="exceptionList"
+							type="xsd:anyType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:element name="limitAttachDettachReply" type="tns:LimitAttachDettachReply" />
+	<xsd:complexType name="LimitAttachDettachReply">
+		<xsd:sequence>
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_HEADER" type="tns:EAI_HEADER" />
+			<xsd:element maxOccurs="1" minOccurs="1" name="eAI_BODY">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="referenceNum" 		 type="tns:ReferenceNum" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="referenceNumConsumer" type="tns:ReferenceNumConsumer" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="referenceNumProvider" type="tns:ReferenceNumProvider" />
+						<xsd:element maxOccurs="unbounded" minOccurs="0" name="snapIn"		 type="tns:SnapIns" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="requestTime"			 type="tns:TimeStampStr" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="returnStatus"		 type="tns:ReturnStatus" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="returnStatusProvider" type="tns:ReturnStatusProvider" />
+						<xsd:element maxOccurs="1" minOccurs="0" name="exceptionList"		 type="xsd:anyType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
